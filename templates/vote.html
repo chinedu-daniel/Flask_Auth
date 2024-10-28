@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vote</title>
+</head>
+<body>
+    <h1>Vote for Your Favorite Option</h1>
+    <form method="post">
+        {% for option in options %}
+            <input type="radio" name="choice" value="{{ option }}" required> {{ option }}<br>
+        {% endfor %}
+        <button type="submit">Submit Vote</button>
+    </form>
+</body>
+</html>
