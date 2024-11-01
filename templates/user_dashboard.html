@@ -1,0 +1,32 @@
+<!-- user_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to Your Dashboard</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if not has_voted %}
+        <p>You haven't voted yet. <a href="{{ url_for('vote') }}">Click here to vote</a>.</p>
+    {% else %}
+        <p>Thank you for voting! Here are the current results:</p>
+        <h2>Voting Results</h2>
+        <ul>
+            {% for option, count in votes.items() %}
+                <li>{{ option }}: {{ count }} votes</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

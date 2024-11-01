@@ -3,11 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        .stats {
+            margin-top: 20px;
+        }
+        .logout {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <h2>Admin Dashboard</h2>
     <p>Welcome, Admin {{ username }}!</p>
     <p>Here you can manage the site settings and view user statistics.</p>
-    <a href="{{ url_for('logout') }}">Logout</a>
+
+    <div class="stats">
+        <h3>User Statistics</h3>
+        <p>Total Registered Users: {{ total_users }}</p>
+        <p>Total Votes Cast: {{ total_votes }}</p>
+        <h3>Manage Users</h3>
+        <a href="{{ url_for('view_users') }}">View All Users</a>
+        <br>
+        <a href="{{ url_for('view_votes') }}">View Vote Statistics</a>
+    </div>
+
+    <a class="logout" href="{{ url_for('logout') }}">Logout</a>
 </body>
 </html>

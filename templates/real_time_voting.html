@@ -1,0 +1,12 @@
+<script>
+    setInterval(() => {
+        fetch('/get_vote_counts')
+            .then(response => response.json())
+            .then(data => {
+                // Update the vote counts on the page dynamically
+                data.forEach(candidate => {
+                    document.getElementById(candidate.name).innerText = candidate.votes;
+                });
+            });
+    }, 5000);  // Every 5 seconds
+</script>

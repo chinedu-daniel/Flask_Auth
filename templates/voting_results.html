@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Voting Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Auto-update the vote counts every 5 seconds
+        function fetchVoteResults() {
+            $.ajax({
+                url: "{{ url_for('get_vote_results') }}",
+                method: "GET",
+                success: function(data) {
+                    let results = '';
+                    $.each(data.votes, function(candidate, count) {
+                        results += `<li>${candidate}: ${count} votes</li>`;
+                    });
+                    $('#vote-results').html(results);
+                },
+                error: function() {
+                    $('#vote-results').html('<li>Error loading results. Please try again.</li>');
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            fetchVoteResults(); // Load results initially
+            setInterval(fetchVoteResults, 5000); // Update every 5 seconds
+        });
+    </script>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Live Voting Results</h1>
+        <ul id="vote-results">
+            <!-- Voting results will be loaded here -->
+        </ul>
+        <a href="{{ url_for('user_dashboard') }}" class="btn">Return to Dashboard</a>
+    </div>
+</body>
+</html>
